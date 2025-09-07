@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GG — CryptoTalks Flyer</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans SC', Arial, sans-serif;
+            background: linear-gradient(135deg, #0a0b0c 0%, #16181d 100%);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .flyer {
+            width: 100%;
+            max-width: 210mm;
+            min-height: 297mm;
+            background: linear-gradient(135deg, #0f1113 0%, #16181d 100%);
+            padding: 20mm 18mm;
+            display: flex;
+            flex-direction: column;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .flyer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #00d4ff, #0077ff, #3b82f6);
+            z-index: 1;
+        }
+        
+        /* Header */
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 18px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .logo {
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: linear-gradient(145deg, #00d4ff, #0077ff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3);
+        }
+        
+        .logo img {
+            width: 70%;
+            height: 70%;
+            object-fit: contain;
+            filter: brightness(0) invert(1);
+        }
+        
+        .brand {
+            font-size: 26px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            background: linear-gradient(90deg, #00d4ff, #3b82f6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 4px rgba(0, 212, 255, 0.2);
+        }
+        
+        .slogan {
+            font-size: 14px;
+            color: #9cc7e0;
+            letter-spacing: 1px;
+            margin-top: 4px;
+            font-weight: 500;
+        }
+        
+        /* Main title */
+        .main-title {
+            text-align: center;
+            margin: 12px 0 24px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .main-title h1 {
+            font-size: 60px;
+            font-weight: 900;
+            margin: 0;
+            background: linear-gradient(180deg, #ffffff 0%, #b0e0ff 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+            text-shadow: 0 4px 8px rgba(0, 132, 255, 0.3);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .main-title h1::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 10%;
+            width: 80%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #00d4ff, transparent);
+        }
+        
+        .main-title p {
+            margin: 12px 0 0;
+            font-size: 16px;
+            color: #bcdaf0;
+            letter-spacing: 2px;
+            font-weight: 500;
+        }
+        
+        /* Columns */
+        .columns {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+            margin-bottom: 20px;
+            z-index: 2;
+            position: relative;
+        }
+        
+        @media (min-width: 768px) {
+            .columns {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(0, 200, 255, 0.25);
+            border-radius: 14px;
+            padding: 18px 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 200, 255, 0.15);
+            border-color: rgba(0, 200, 255, 0.4);
+        }
+        
+        .card h2 {
+            font-size: 18px;
+            margin: 0 0 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #00d4ff;
+        }
+        
+        .card ul, .card ol {
+            margin: 0;
+            padding-left: 22px;
+            line-height: 1.7;
+            font-size: 14px;
+            color: #dfeff7;
+        }
+        
+        .card li {
+            margin-bottom: 8px;
+        }
+        
+        .card li:last-child {
+            margin-bottom: 0;
+        }
+        
+        .card strong {
+            color: #00d0ff;
+            font-weight: 700;
+        }
+        
+        /* Exchanges - 单行布局 */
+        .exchanges {
+            margin-top: 22px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .exchanges h2 {
+            font-size: 18px;
+            margin: 0 0 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #00d4ff;
+        }
+        
+        .ex-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        
+        .ex-item {
+            background: rgba(0, 0, 0, 0.25);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 14px 16px;
+            display: flex;
+            gap: 14px;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .ex-item:hover {
+            background: rgba(0, 30, 60, 0.3);
+            border-color: rgba(0, 200, 255, 0.3);
+            transform: translateY(-3px);
+        }
+        
+        .ex-meta {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .ex-meta p {
+            margin: 4px 0;
+            font-size: 13px;
+            color: #e6f7ff;
+        }
+        
+        .ex-meta p.url {
+            font-size: 11.5px;
+            color: #9fdfff;
+            word-break: break-all;
+            font-family: monospace;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 6px 8px;
+            border-radius: 6px;
+            margin: 8px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .url-link {
+            color: #9fdfff;
+            text-decoration: none;
+            transition: color 0.2s ease;
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            margin-right: 10px;
+        }
+        
+        .url-link:hover {
+            color: #00d4ff;
+            text-decoration: underline;
+        }
+        
+        .copy-btn {
+            background: rgba(0, 180, 255, 0.2);
+            border: 1px solid rgba(0, 180, 255, 0.4);
+            color: #00d4ff;
+            border-radius: 4px;
+            padding: 4px 8px;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .copy-btn:hover {
+            background: rgba(0, 180, 255, 0.3);
+        }
+        
+        .ex-code {
+            font-weight: 700;
+            color: #00d4ff;
+            font-size: 13px;
+            letter-spacing: 1px;
+            background: rgba(0, 180, 255, 0.1);
+            padding: 3px 8px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+        
+        .qr {
+            width: 70px;
+            height: 70px;
+            background: #101214;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            color: #999;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            flex-shrink: 0;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Footer */
+        .footer {
+            margin-top: auto;
+            text-align: center;
+            padding-top: 20px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .footer p {
+            margin: 6px 0;
+            font-size: 13px;
+            color: #9fb9c9;
+        }
+        
+        .footer .note {
+            font-size: 12px;
+            color: #7f97a6;
+            margin-top: 10px;
+        }
+        
+        /* Decorative elements */
+        .decoration {
+            position: absolute;
+            z-index: 1;
+        }
+        
+        .decoration-1 {
+            top: 10%;
+            right: 5%;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.15) 0%, transparent 70%);
+            filter: blur(10px);
+        }
+        
+        .decoration-2 {
+            bottom: 15%;
+            left: 5%;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
+            filter: blur(8px);
+        }
+        
+        /* Print adjustments */
+        @media print {
+            body {
+                background: white;
+                color: black;
+                padding: 0;
+            }
+            
+            .flyer {
+                background: white;
+                box-shadow: none;
+                border-radius: 0;
+                max-width: 100%;
+                min-height: auto;
+            }
+            
+            .card, .ex-item {
+                background: transparent;
+                border-color: #ccc;
+            }
+            
+            .qr {
+                background: #eee;
+                color: #333;
+            }
+            
+            .decoration {
+                display: none;
+            }
+            
+            .brand, .main-title h1, .ex-code, .card h2, .exchanges h2 {
+                color: #0066cc !important;
+                background: none !important;
+                -webkit-text-fill-color: #0066cc !important;
+            }
+            
+            .card strong {
+                color: #0066cc;
+            }
+            
+            .copy-btn {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="flyer">
+        <!-- Decorative elements -->
+        <div class="decoration decoration-1"></div>
+        <div class="decoration decoration-2"></div>
+
+        <!-- Header -->
+        <div class="header">
+            <div class="logo"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384023.png" alt="logo"></div>
+            <div>
+                <div class="brand">GG — CryptoTalks</div>
+                <div class="slogan">JOIN US AND DISCOVER WEALTH</div>
+            </div>
+        </div>
+
+        <!-- Main title -->
+        <div class="main-title">
+            <h1>核心群</h1>
+            <p>加入我们 · 发现财富</p>
+        </div>
+
+        <!-- Columns -->
+        <div class="columns">
+            <div class="card">
+                <h2>📌 本群权益</h2>
+                <ul>
+                    <li>全市场行情趋势分析（现货 / 合约 / 山寨 / 撸毛）</li>
+                    <li>哈希教授 VIP 独家宏观见解与策略</li>
+                    <li>每月不定期抽奖福利</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h2>🔑 入群方式</h2>
+                <ol>
+                    <li>Telegram 私信助理：<strong>@hanaiime</strong></li>
+                    <li>使用交易所注册链接（Binance / OKX / Bitget / Bybit / Backpack）注册</li>
+                    <li>账户入金 <strong>≥ 1000U</strong>，即可加入核心频道与交流群</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Exchanges - 单行布局 -->
+        <div class="exchanges">
+            <h2>🌐 交易所注册链接</h2>
+            <div class="ex-list">
+                <div class="ex-item">
+                    <div class="ex-meta">
+                        <p><b>Binance（需KYC）</b></p>
+                        <p class="url">
+                            <a href="https://accounts.binance.com/register?ref=AX89NS5Y" class="url-link" target="_blank">https://accounts.binance.com/register?ref=AX89NS5Y</a>
+                            <button class="copy-btn" onclick="copyToClipboard('https://accounts.binance.com/register?ref=AX89NS5Y')">复制</button>
+                        </p>
+                        <p>邀请码： <span class="ex-code">AX89NS5Y</span></p>
+                    </div>
+                    <div class="qr">QR</div>
+                </div>
+                <div class="ex-item">
+                    <div class="ex-meta">
+                        <p><b>OKX（需KYC）</b></p>
+                        <p class="url">
+                            <a href="https://www.xacncf.com/join/99872040" class="url-link" target="_blank">https://www.xacncf.com/join/99872040</a>
+                            <button class="copy-btn" onclick="copyToClipboard('https://www.xacncf.com/join/99872040')">复制</button>
+                        </p>
+                        <p>邀请码： <span class="ex-code">99872040</span></p>
+                    </div>
+                    <div class="qr">QR</div>
+                </div>
+                <div class="ex-item">
+                    <div class="ex-meta">
+                        <p><b>Bitget（需KYC）</b></p>
+                        <p class="url">
+                            <a href="https://partner.dhxrcw.cn/bg/GG88888888" class="url-link" target="_blank">https://partner.dhxrcw.cn/bg/GG88888888</a>
+                            <button class="copy-btn" onclick="copyToClipboard('https://partner.dhxrcw.cn/bg/GG88888888')">复制</button>
+                        </p>
+                        <p>邀请码： <span class="ex-code">GG88888888</span></p>
+                    </div>
+                    <div class="qr">QR</div>
+                </div>
+                <div class="ex-item">
+                    <div class="ex-meta">
+                        <p><b>Bybit（可KYC 3次）</b></p>
+                        <p class="url">
+                            <a href="https://partner.bybit.com/b/142035" class="url-link" target="_blank">https://partner.bybit.com/b/142035</a>
+                            <button class="copy-btn" onclick="copyToClipboard('https://partner.bybit.com/b/142035')">复制</button>
+                        </p>
+                        <p>邀请码： <span class="ex-code">142035</span></p>
+                    </div>
+                    <div class="qr">QR</div>
+                </div>
+                <div class="ex-item">
+                    <div class="ex-meta">
+                        <p><b>Backpack（需KYC）</b></p>
+                        <p class="url">
+                            <a href="https://backpack.exchange/refer/DrHash" class="url-link" target="_blank">https://backpack.exchange/refer/DrHash</a>
+                            <button class="copy-btn" onclick="copyToClipboard('https://backpack.exchange/refer/DrHash')">复制</button>
+                        </p>
+                        <p>邀请码： <span class="ex-code">DrHash</span></p>
+                    </div>
+                    <div class="qr">QR</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>Twitter: @DrHashClub</p>
+            <p class="note">如遇注册或 KYC 问题，请联系助理：@hanaiime</p>
+        </div>
+    </div>
+
+    <script>
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('链接已复制到剪贴板: ' + text);
+            }).catch(err => {
+                console.error('无法复制文本: ', err);
+            });
+        }
+    </script>
+</body>
+</html>
