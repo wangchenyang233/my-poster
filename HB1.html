@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GG — CryptoTalks Flyer</title>
+    <title>Wbe3 — CryptoTalks Flyer</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap">
     <style>
         * {
@@ -46,6 +46,32 @@
             height: 5px;
             background: linear-gradient(90deg, #00d4ff, #0077ff, #3b82f6);
             z-index: 1;
+        }
+        
+        /* Telegram Button */
+        .telegram-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 10;
+        }
+        
+        .telegram-button a {
+            display: inline-block;
+            background: linear-gradient(90deg, #0088cc, #00aced);
+            color: white;
+            text-decoration: none;
+            padding: 10px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 136, 204, 0.3);
+        }
+        
+        .telegram-button a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 136, 204, 0.5);
         }
         
         /* Header */
@@ -195,6 +221,24 @@
         .card strong {
             color: #00d0ff;
             font-weight: 700;
+        }
+        
+        /* Telegram link in card */
+        .telegram-link {
+            color: #00d4ff;
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-block;
+            margin-top: 8px;
+            padding: 5px 10px;
+            border-radius: 6px;
+            background: rgba(0, 180, 255, 0.1);
+            transition: all 0.2s ease;
+        }
+        
+        .telegram-link:hover {
+            background: rgba(0, 180, 255, 0.2);
+            text-decoration: underline;
         }
         
         /* Exchanges - 单行布局 */
@@ -381,6 +425,10 @@
                 min-height: auto;
             }
             
+            .telegram-button {
+                display: none;
+            }
+            
             .card, .ex-item {
                 background: transparent;
                 border-color: #ccc;
@@ -407,6 +455,22 @@
             
             .copy-btn {
                 display: none;
+            }
+            
+            .telegram-link {
+                color: #0066cc;
+                background: transparent;
+            }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .telegram-button {
+                position: relative;
+                top: 0;
+                right: 0;
+                margin: 0 auto 20px;
+                width: fit-content;
             }
         }
     </style>
@@ -525,10 +589,4 @@
         }
     </script>
 </body>
-
 </html>
-
-
-
-
-
